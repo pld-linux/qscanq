@@ -2,7 +2,7 @@ Summary:	Virus Scanning for Qmail
 Summary(pl):	Skanowanie antywirusowe dla Qmaila
 Name:		qscanq
 Version:	0.43
-Release:	0.1
+Release:	0.2
 License:	BSD-like
 Group:		Applications
 Source0:	http://jeenyus.net/~budney/software/qscanq/%{name}-%{version}.tar.gz
@@ -10,6 +10,8 @@ Source0:	http://jeenyus.net/~budney/software/qscanq/%{name}-%{version}.tar.gz
 URL:		http://qscanq.org/
 Requires:	qmail
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_libexecdir	%{_libdir}/qmail
 
 %description
 Qscanq scans every email message submitted to qmail before allowing it
@@ -30,24 +32,42 @@ antywirusowym, a wiêc potrzebuje clamava albo AntiVira z firmy Hbedv.
 
 %build
 cd %{name}-%{version}/src
-%{__make}
+
+echo '%{_prefix}' > home
+echo '%{__cc} %{rpmcflags}' > conf-cc
+echo '%{__cc}' > conf-ld
+echo '%(id -un)
+%(id -un)' > conf-users
+echo '%(id -un)' > conf-groups
+
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-cd %{name}-%{version}
-
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+cd %{name}-%{version}/src
+install -d $RPM_BUILD_ROOT%{_libexecdir}
+install qscanq $RPM_BUILD_ROOT%{_libexecdir}
+install cleanq $RPM_BUILD_ROOT%{_libexecdir}
+install run-antivir $RPM_BUILD_ROOT%{_libexecdir}
+install run-cleanq $RPM_BUILD_ROOT%{_libexecdir}
+install install-post $RPM_BUILD_ROOT%{_libexecdir}
+install install-cleanq $RPM_BUILD_ROOT%{_libexecdir}
+install install-unwrap $RPM_BUILD_ROOT%{_libexecdir}
+install install-wrap $RPM_BUILD_ROOT%{_libexecdir}
+install qscanq-stdin $RPM_BUILD_ROOT%{_libexecdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc %{name}-%{version}/{AUTHORS,CREDITS,ChangeLog,NEWS,README,THANKS,TODO}
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
-%attr(755,root,root) %{_bindir}/*
-%{_datadir}/%{name}
-%attr(754,root,root) /etc/rc.d/init.d/%{name}
-%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
+%doc %{name}-%{version}/src/{Changelog,TODO,TEST-*}
+%attr(755,root,root) %{_libexecdir}/cleanq
+%attr(755,root,root) %{_libexecdir}/install-cleanq
+%attr(755,root,root) %{_libexecdir}/install-post
+%attr(755,root,root) %{_libexecdir}/install-unwrap
+%attr(755,root,root) %{_libexecdir}/install-wrap
+%attr(755,root,root) %{_libexecdir}/qscanq
+%attr(755,root,root) %{_libexecdir}/qscanq-stdin
+%attr(755,root,root) %{_libexecdir}/run-antivir
+%attr(755,root,root) %{_libexecdir}/run-cleanq
