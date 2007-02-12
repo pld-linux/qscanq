@@ -1,5 +1,5 @@
 Summary:	Virus Scanning for Qmail
-Summary(pl):	Skanowanie antywirusowe dla Qmaila
+Summary(pl.UTF-8):   Skanowanie antywirusowe dla Qmaila
 Name:		qscanq
 Version:	0.43
 Release:	0.2
@@ -20,12 +20,12 @@ bounced, so you won't have to deal with double-bounces during virus
 outbreaks. This program is not a malware scanner so you nead clamav or
 AntiVir from Hbedv.
 
-%description -l pl
-Qscanq skanuje ka¿d± wiadomo¶æ e-mail dostarczon± do qmaila zanim
-jeszcze bêdzie przeniesiona do kolejki poczty. Zara¿one wiadomo¶ci s±
-odrzucane a nie odbijane, tak wiêc nie trzeba martwiæ siê o podwójne
-odbicia podczas ataków wirusów. Ten program nie jest skanerem
-antywirusowym, a wiêc potrzebuje clamava albo AntiVira z firmy Hbedv.
+%description -l pl.UTF-8
+Qscanq skanuje kaÅ¼dÄ… wiadomoÅ›Ä‡ e-mail dostarczonÄ… do qmaila zanim
+jeszcze bÄ™dzie przeniesiona do kolejki poczty. ZaraÅ¼one wiadomoÅ›ci sÄ…
+odrzucane a nie odbijane, tak wiÄ™c nie trzeba martwiÄ‡ siÄ™ o podwÃ³jne
+odbicia podczas atakÃ³w wirusÃ³w. Ten program nie jest skanerem
+antywirusowym, a wiÄ™c potrzebuje clamava albo AntiVira z firmy Hbedv.
 
 %prep
 %setup -q -n mail
