@@ -1,5 +1,5 @@
 Summary:	Virus Scanning for Qmail
-Summary(pl.UTF-8):   Skanowanie antywirusowe dla Qmaila
+Summary(pl.UTF-8):	Skanowanie antywirusowe dla Qmaila
 Name:		qscanq
 Version:	0.43
 Release:	0.2
